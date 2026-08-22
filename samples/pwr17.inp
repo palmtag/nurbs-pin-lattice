@@ -1,0 +1,49 @@
+#  LWR Sample problem
+
+title 'PWR Sample Problem 17x17' /
+
+square /    square problem, not hex
+nrow    17   / number of rows of rods along one edge
+ppitch  1.26 / rod pitch
+apitch 21.54 / assembly pitch
+
+# Material List:  (edit to top of mesh file)
+matname  1  "fuel 3.6%"
+matname  2  "fuel 4.0%"
+matname  3  "fuel 4.6%"
+matname  4  "fuel 4.0%" / 3.35% gad
+matname  5  clad
+matname  6  outer clad
+matname  7  water
+matcool  7    / coolant material number
+
+# define pin radii and material numbers by ring
+pinrad A 0.2 0.418 0.475 /
+pinrad B 0.2 0.418 0.475 /
+pinrad W 0.2 0.561 0.602 / guide rod
+
+pinmat A 2 2 5 /
+pinmat B 1 1 5 /
+pinmat W 7 7 5 /  water rod
+
+# map of pin types
+rodmap
+  B B A A A A A A A A A A A A A B B 
+  B A A A A A A A A A A A A A A A B 
+  A A A A A W A A W A A W A A A A A 
+  A A A W A A A A A A A A A W A A A 
+  A A A A A A A A A A A A A A A A A 
+  A A W A A W A A W A A W A A W A A 
+  A A A A A A A A A A A A A A A A A 
+  A A A A A A A A A A A A A A A A A 
+  A A W A A W A A W A A W A A W A A 
+  A A A A A A A A A A A A A A A A A 
+  A A A A A A A A A A A A A A A A A 
+  A A W A A W A A W A A W A A W A A 
+  A A A A A A A A A A A A A A A A A 
+  A A A W A A A A A A A A A W A A A 
+  A A A A A W A A W A A W A A A A A 
+  B A A A A A A A A A A A A A A A B 
+  B B A A A A A A A A A A A A A B B  / fuel type map
+
+

@@ -1,0 +1,31 @@
+#  LWR Sample problem
+
+title 'PWR 3x3 Sample Problem' /
+
+square /    square problem, not hex
+nrow    3    / number of rows of rods along one edge
+ppitch  1.26 / rod pitch
+apitch  3.98 / assembly pitch with gap .1
+
+# Material List:  (edit to top of mesh file)
+matname  1  Fuel1
+matname  2  Fuel2
+matname  3  Clad
+matname  4  Coolant
+matcool  4    / coolant material number
+
+# define pin radii and material numbers by ring
+pinrad A 0.2 0.418 0.475 /
+pinrad B 0.2 0.418 0.475 /
+pinrad W 0.2 0.561 0.602 / guide rod
+
+pinmat A 1 1 3 /
+pinmat B 2 2 3 /
+pinmat W 4 4 3 /  water rod
+
+# map of pin types
+rodmap
+  A A A
+  A W A
+  A B A / fuel type map
+

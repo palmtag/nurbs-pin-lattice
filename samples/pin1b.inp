@@ -1,0 +1,19 @@
+# single pincell
+
+title 'Single pincell' /
+
+nrow    1    / number of rows of rods along one edge
+ppitch  1.26 / rod pitch
+
+# Material List:  (edit to top of mesh file)
+matname  2  Fuel
+matcool  1    / coolant material number
+
+# define pin radii and material numbers by ring
+pinrad A 0.26 0.40 0.53  /
+pinmat A  2    2    2   /
+
+# map of pin types
+rodmap
+  A /
+
