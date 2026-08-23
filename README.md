@@ -44,3 +44,5 @@ The mesh file can be used by MFEM.
 
 Use the program "glvis" to view the mesh file.
 
+Sample image "pin2b"
+![pincell](pin2b.png)
