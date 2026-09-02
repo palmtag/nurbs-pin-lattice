@@ -81,13 +81,13 @@
         isqbnd0=isqbnd0+4*nrow+2   ! increment for new row
       enddo
 
-!--- fill 3D information
-
-      call make_xielem()    ! generate 3D element data
-
 !--- check that every edge is used (debug)
 
       call checkedge()
+
+!--- fill 3D information
+
+      call make_xielem()    ! generate 3D element data
 
 !--- write mesh file
 

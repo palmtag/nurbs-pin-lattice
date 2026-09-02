@@ -201,19 +201,71 @@
 
 !  todo:  not really sure what the 3D data is for?
 
-      integer :: j
-      integer :: j1, j2, j3, j4
+      integer :: j, k
+      integer :: j1, j2
+      integer :: v1, v2, v3, v4
+      real(8) :: wvert1, wvert2, wvert3, wvert4
+      real(8) :: wmid1, wmid2, wmid3, wmid4
+      real(8) :: xmid1, xmid2, xmid3, xmid4
+      real(8) :: ymid1, ymid2, ymid3, ymid4
 
       allocate (xielem(2,nelem))
+      allocate (wcenter(nelem))
 
       do j=1, nelem
-        j1=gg(1,j)+1
-        j2=gg(2,j)+1
-        j3=gg(3,j)+1
-        j4=gg(4,j)+1   ! gg is zero based
-        xielem(1,j)=0.25d0*(xi(1,j1)+xi(1,j2)+xi(1,j3)+xi(1,j4))
-        xielem(2,j)=0.25d0*(xi(2,j1)+xi(2,j2)+xi(2,j3)+xi(2,j4))
-!!      weight(j)=0.853553d0   ! **** not sure why  todo:
+
+	! Extract 0-based vertex IDs for the element
+        v1=gg(1,j)
+        v2=gg(2,j)
+        v3=gg(3,j)
+        v4=gg(4,j)
+
+        ! Initialize mid-weights to 1.0
+        wmid1 = 1.0d0; wmid2 = 1.0d0; wmid3 = 1.0d0; wmid4 = 1.0d0
+
+	! Initialize mid-pints to 0.0
+	xmid1 = 0.0d0; xmid2 = 0.0d0; xmid3 = 0.0d0; xmid4 = 0.0d0;
+	ymid1 = 0.0d0; ymid2 = 0.0d0; ymid3 = 0.0d0; ymid4 = 0.0d0;
+
+        ! Edge 1: v1 to v2 (bottom)
+        k = local2global(j, 1)
+        wmid1 = wmid(k)
+        xmid1 = ximid(1,k)
+        ymid1 = ximid(2,k)
+
+        ! Edge 2: v2 to v3 (right)
+        k = local2global(j, 2)
+        wmid2 = wmid(k)
+        xmid2 = ximid(1,k)
+        ymid2 = ximid(2,k)
+
+        ! Edge 3: v3 to v4 (top)
+        k = local2global(j, 3)
+        wmid3 = wmid(k)
+        xmid3 = ximid(1,k)
+        ymid3 = ximid(2,k)
+
+        ! Edge 4: v4 to v1 (left)
+        k = local2global(j, 4)
+        wmid4 = wmid(k)
+        xmid4 = ximid(1,k)
+        ymid4 = ximid(2,k)
+
+        ! Extract vertex weights (arrays are 1-based, so add 1)
+        wvert1 = weight(v1+1)
+        wvert2 = weight(v2+1)
+        wvert3 = weight(v3+1)
+        wvert4 = weight(v4+1)
+
+        ! Apply Transfinite Interpolation formula
+        wcenter(j) = 0.5d0*(wmid1 + wmid2 + wmid3 + wmid4) - &
+                  0.25d0*(wvert1 + wvert2 + wvert3 + wvert4)
+
+	xielem(1,j) = (0.5d0*(xmid1*wmid1 + xmid2*wmid2 + xmid3*wmid3 + xmid4*wmid4) - &
+		  0.25d0*(xi(1,v1+1)*wvert1 + xi(1,v2+1)*wvert2 + xi(1,v3+1)*wvert3 + xi(1,v4+1)*wvert4))/wcenter(j)
+	xielem(2,j) = (0.5d0*(ymid1*wmid1 + ymid2*wmid2 + ymid3*wmid3 + ymid4*wmid4) - &
+		  0.25d0*(xi(2,v1+1)*wvert1 + xi(2,v2+1)*wvert2 + xi(2,v3+1)*wvert3 + xi(2,v4+1)*wvert4))/wcenter(j)
+
       enddo
 
 ! weight is printed out explicitly in writemesh array
@@ -231,10 +283,10 @@
 
 !--- data
 
-      integer :: i
+      integer :: i, j
       integer :: iatt
-
-      real(8) :: wcon1
+      integer, allocatable :: iused(:)
+      !real(8) :: wcon1
 
 !--- open file
 
@@ -274,14 +326,31 @@
 !     boundary attribute, geom, vert1, vert2
 !     geometry=1 for segment
 
-      nbound=8
-      iatt=1     ! boundary attribute
-
-      write (12,'(/,a,/,i0)') 'boundary', nbound
-      do i=1, nbound
-        write (12,240) iatt, 1, gedge(2,i), gedge(3,i)
+      ! Find exterior edges (edges used by exactly 1 element)
+      allocate(iused(nedge))
+      iused = 0
+      do i=1, nelem
+        do j=1, 4
+          iused(local2global(i,j)) = iused(local2global(i,j)) + 1
+        enddo
       enddo
 
+      ! Count actual boundary edges
+      nbound = 0
+      do i=1, nedge
+        if (iused(i) == 1) nbound = nbound + 1
+      enddo
+
+      iatt = 3 ! boundary attribute, assume it's reflecting
+
+      write (12,'(/,a,/,i0)') 'boundary', nbound
+      do i=1, nedge
+        if (iused(i) == 1) then
+          write (12,240) iatt, 1, gedge(2,i), gedge(3,i)
+        endif
+      enddo
+
+      deallocate(iused)
 !--- print edges
 !     knot vector, vert1, vert2
 
@@ -306,7 +375,7 @@
 
 !--- print weights
 
-      wcon1=0.853553d0   ! **** 3D element weight   todo:
+      !wcon1=0.853553d0   ! **** 3D element weight   todo:
 
       write (12,'(/,a)') 'weights'
       do i=1, nvert
@@ -324,7 +393,7 @@
         endif
       enddo
       do i=1, nelem   ! for xielem array
-        write (12,'(f9.6)') wcon1
+        write (12,'(f9.6)') wcenter(i)
       enddo
 
 !--- data
@@ -391,10 +460,12 @@
             if (j1.eq.j3 .and. j2.eq.j4) then
               iflost=.false.
               iused(j)=iused(j)+1
+	      local2global(i,1) = j
             endif
             if (j1.eq.j4 .and. j2.eq.j3) then
               iflost=.false.
               iused(j)=iused(j)+1
+	      local2global(i,1) = j
             endif
           enddo
           if (iflost) then
@@ -410,10 +481,12 @@
             if (j1.eq.j3 .and. j2.eq.j4) then
               iflost=.false.
               iused(j)=iused(j)+1
+	      local2global(i,2) = j
             endif
             if (j1.eq.j4 .and. j2.eq.j3) then
               iflost=.false.
               iused(j)=iused(j)+1
+	      local2global(i,2) = j
             endif
           enddo
           if (iflost) then
@@ -429,10 +502,12 @@
             if (j1.eq.j3 .and. j2.eq.j4) then
               iflost=.false.
               iused(j)=iused(j)+1
+	      local2global(i,3) = j
             endif
             if (j1.eq.j4 .and. j2.eq.j3) then
               iflost=.false.
               iused(j)=iused(j)+1
+	      local2global(i,3) = j
             endif
           enddo
           if (iflost) then
@@ -448,10 +523,12 @@
             if (j1.eq.j3 .and. j2.eq.j4) then
               iflost=.false.
               iused(j)=iused(j)+1
+	      local2global(i,4) = j
             endif
             if (j1.eq.j4 .and. j2.eq.j3) then
               iflost=.false.
               iused(j)=iused(j)+1
+	      local2global(i,4) = j
             endif
           enddo
           if (iflost) then

@@ -1,0 +1,86 @@
+#C5G7 Mesh Generator Input File
+
+title 'C5G7 Geometry'
+
+square
+nrow 51
+ppitch 1.260000
+apitch 64.260000
+
+matname 1 coolant
+matname 2 uo2
+matname 3 43mox
+matname 4 70mox
+matname 5 87mox
+matname 6 guide
+matname 7 fissionchamber
+matcool 1
+
+pinrad W 0.26 0.54 /
+pinrad A 0.26 0.54 /
+pinrad B 0.26 0.54 /
+pinrad C 0.26 0.54 /
+pinrad D 0.26 0.54 /
+pinrad E 0.26 0.54 /
+pinrad F 0.26 0.54 /
+
+pinmat W 1 1 /
+pinmat A 2 2 /
+pinmat B 3 3 /
+pinmat C 4 4 /
+pinmat D 5 5 /
+pinmat E 6 6 /
+pinmat F 7 7 /
+
+rodmap
+A A A A A A A A A A A A A A A A A B B B B B B B B B B B B B B B B B W W W W W W W W W W W W W W W W W 
+A A A A A A A A A A A A A A A A A B C C C C C C C C C C C C C C C B W W W W W W W W W W W W W W W W W 
+A A A A A E A A E A A E A A A A A B C C C C E C C E C C E C C C C B W W W W W W W W W W W W W W W W W 
+A A A E A A A A A A A A A E A A A B C C E C D D D D D D D C E C C B W W W W W W W W W W W W W W W W W 
+A A A A A A A A A A A A A A A A A B C C C D D D D D D D D D C C C B W W W W W W W W W W W W W W W W W 
+A A E A A E A A E A A E A A E A A B C E D D E D D E D D E D D E C B W W W W W W W W W W W W W W W W W 
+A A A A A A A A A A A A A A A A A B C C D D D D D D D D D D D C C B W W W W W W W W W W W W W W W W W 
+A A A A A A A A A A A A A A A A A B C C D D D D D D D D D D D C C B W W W W W W W W W W W W W W W W W 
+A A E A A E A A F A A E A A E A A B C E D D E D D F D D E D D E C B W W W W W W W W W W W W W W W W W 
+A A A A A A A A A A A A A A A A A B C C D D D D D D D D D D D C C B W W W W W W W W W W W W W W W W W 
+A A A A A A A A A A A A A A A A A B C C D D D D D D D D D D D C C B W W W W W W W W W W W W W W W W W 
+A A E A A E A A E A A E A A E A A B C E D D E D D E D D E D D E C B W W W W W W W W W W W W W W W W W 
+A A A A A A A A A A A A A A A A A B C C C D D D D D D D D D C C C B W W W W W W W W W W W W W W W W W 
+A A A E A A A A A A A A A E A A A B C C E C D D D D D D D C E C C B W W W W W W W W W W W W W W W W W 
+A A A A A E A A E A A E A A A A A B C C C C E C C E C C E C C C C B W W W W W W W W W W W W W W W W W 
+A A A A A A A A A A A A A A A A A B C C C C C C C C C C C C C C C B W W W W W W W W W W W W W W W W W 
+A A A A A A A A A A A A A A A A A B B B B B B B B B B B B B B B B B W W W W W W W W W W W W W W W W W 
+B B B B B B B B B B B B B B B B B A A A A A A A A A A A A A A A A A W W W W W W W W W W W W W W W W W 
+B C C C C C C C C C C C C C C C B A A A A A A A A A A A A A A A A A W W W W W W W W W W W W W W W W W 
+B C C C C E C C E C C E C C C C B A A A A A E A A E A A E A A A A A W W W W W W W W W W W W W W W W W 
+B C C E C D D D D D D D C E C C B A A A E A A A A A A A A A E A A A W W W W W W W W W W W W W W W W W 
+B C C C D D D D D D D D D C C C B A A A A A A A A A A A A A A A A A W W W W W W W W W W W W W W W W W 
+B C E D D E D D E D D E D D E C B A A E A A E A A E A A E A A E A A W W W W W W W W W W W W W W W W W 
+B C C D D D D D D D D D D D C C B A A A A A A A A A A A A A A A A A W W W W W W W W W W W W W W W W W 
+B C C D D D D D D D D D D D C C B A A A A A A A A A A A A A A A A A W W W W W W W W W W W W W W W W W 
+B C E D D E D D F D D E D D E C B A A E A A E A A F A A E A A E A A W W W W W W W W W W W W W W W W W 
+B C C D D D D D D D D D D D C C B A A A A A A A A A A A A A A A A A W W W W W W W W W W W W W W W W W 
+B C C D D D D D D D D D D D C C B A A A A A A A A A A A A A A A A A W W W W W W W W W W W W W W W W W 
+B C E D D E D D E D D E D D E C B A A E A A E A A E A A E A A E A A W W W W W W W W W W W W W W W W W 
+B C C C D D D D D D D D D C C C B A A A A A A A A A A A A A A A A A W W W W W W W W W W W W W W W W W 
+B C C E C D D D D D D D C E C C B A A A E A A A A A A A A A E A A A W W W W W W W W W W W W W W W W W 
+B C C C C E C C E C C E C C C C B A A A A A E A A E A A E A A A A A W W W W W W W W W W W W W W W W W 
+B C C C C C C C C C C C C C C C B A A A A A A A A A A A A A A A A A W W W W W W W W W W W W W W W W W 
+B B B B B B B B B B B B B B B B B A A A A A A A A A A A A A A A A A W W W W W W W W W W W W W W W W W 
+W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W 
+W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W 
+W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W 
+W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W 
+W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W 
+W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W 
+W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W 
+W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W 
+W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W 
+W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W 
+W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W 
+W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W 
+W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W 
+W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W 
+W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W 
+W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W 
+W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W 

@@ -30,9 +30,11 @@
       real(8), allocatable :: ximid(:,:)   ! (2,nedge)       x,y,z of midpoint
       real(8), allocatable :: weight(:)    ! (nvert)
       real(8), allocatable :: wmid(:)      ! (nedge)         edge midpoint weights
+      real(8), allocatable :: wcenter(:)   ! (nelem)         central node midpoint weight
       integer, allocatable :: gg(:,:)      ! (iorder,nelem)  vertice numbers per element
       integer, allocatable :: matl(:)      ! (nelem)     material numbers / element attributes
       integer, allocatable :: gedge(:,:)   ! (3,nedge)   knot, vert1, vert2
+      integer, allocatable :: local2global(:,:) ! (nelem,4) 
 
    contains
 
@@ -71,8 +73,10 @@
 
       allocate(gg(iorder,maxelem))   ! 4 vertices
       allocate(matl(maxelem))        ! materials / attributes
+      allocate(local2global(maxelem,4))
       gg=999999      ! use big number to catch errors easily
       matl=999999
+      local2global=999999
 
       allocate(gedge(3,maxedge))   ! knot, vert1, vert2
       gedge=999999
