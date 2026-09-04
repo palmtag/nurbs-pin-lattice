@@ -202,7 +202,6 @@
 !  todo:  not really sure what the 3D data is for?
 
       integer :: j, k
-      integer :: j1, j2
       integer :: v1, v2, v3, v4
       real(8) :: wvert1, wvert2, wvert3, wvert4
       real(8) :: wmid1, wmid2, wmid3, wmid4
@@ -223,9 +222,9 @@
         ! Initialize mid-weights to 1.0
         wmid1 = 1.0d0; wmid2 = 1.0d0; wmid3 = 1.0d0; wmid4 = 1.0d0
 
-	! Initialize mid-pints to 0.0
-	xmid1 = 0.0d0; xmid2 = 0.0d0; xmid3 = 0.0d0; xmid4 = 0.0d0;
-	ymid1 = 0.0d0; ymid2 = 0.0d0; ymid3 = 0.0d0; ymid4 = 0.0d0;
+        ! Initialize mid-pints to 0.0
+        xmid1 = 0.0d0; xmid2 = 0.0d0; xmid3 = 0.0d0; xmid4 = 0.0d0;
+        ymid1 = 0.0d0; ymid2 = 0.0d0; ymid3 = 0.0d0; ymid4 = 0.0d0;
 
         ! Edge 1: v1 to v2 (bottom)
         k = local2global(j, 1)
@@ -259,12 +258,12 @@
 
         ! Apply Transfinite Interpolation formula
         wcenter(j) = 0.5d0*(wmid1 + wmid2 + wmid3 + wmid4) - &
-                  0.25d0*(wvert1 + wvert2 + wvert3 + wvert4)
+              0.25d0*(wvert1 + wvert2 + wvert3 + wvert4)
 
-	xielem(1,j) = (0.5d0*(xmid1*wmid1 + xmid2*wmid2 + xmid3*wmid3 + xmid4*wmid4) - &
-		  0.25d0*(xi(1,v1+1)*wvert1 + xi(1,v2+1)*wvert2 + xi(1,v3+1)*wvert3 + xi(1,v4+1)*wvert4))/wcenter(j)
-	xielem(2,j) = (0.5d0*(ymid1*wmid1 + ymid2*wmid2 + ymid3*wmid3 + ymid4*wmid4) - &
-		  0.25d0*(xi(2,v1+1)*wvert1 + xi(2,v2+1)*wvert2 + xi(2,v3+1)*wvert3 + xi(2,v4+1)*wvert4))/wcenter(j)
+        xielem(1,j) = (0.5d0*(xmid1*wmid1 + xmid2*wmid2 + xmid3*wmid3 + xmid4*wmid4) - &
+              0.25d0*(xi(1,v1+1)*wvert1 + xi(1,v2+1)*wvert2 + xi(1,v3+1)*wvert3 + xi(1,v4+1)*wvert4))/wcenter(j)
+        xielem(2,j) = (0.5d0*(ymid1*wmid1 + ymid2*wmid2 + ymid3*wmid3 + ymid4*wmid4) - &
+              0.25d0*(xi(2,v1+1)*wvert1 + xi(2,v2+1)*wvert2 + xi(2,v3+1)*wvert3 + xi(2,v4+1)*wvert4))/wcenter(j)
 
       enddo
 
@@ -460,12 +459,12 @@
             if (j1.eq.j3 .and. j2.eq.j4) then
               iflost=.false.
               iused(j)=iused(j)+1
-	      local2global(i,1) = j
+              local2global(i,1) = j
             endif
             if (j1.eq.j4 .and. j2.eq.j3) then
               iflost=.false.
               iused(j)=iused(j)+1
-	      local2global(i,1) = j
+              local2global(i,1) = j
             endif
           enddo
           if (iflost) then
@@ -481,12 +480,12 @@
             if (j1.eq.j3 .and. j2.eq.j4) then
               iflost=.false.
               iused(j)=iused(j)+1
-	      local2global(i,2) = j
+              local2global(i,2) = j
             endif
             if (j1.eq.j4 .and. j2.eq.j3) then
               iflost=.false.
               iused(j)=iused(j)+1
-	      local2global(i,2) = j
+              local2global(i,2) = j
             endif
           enddo
           if (iflost) then
@@ -502,12 +501,12 @@
             if (j1.eq.j3 .and. j2.eq.j4) then
               iflost=.false.
               iused(j)=iused(j)+1
-	      local2global(i,3) = j
+              local2global(i,3) = j
             endif
             if (j1.eq.j4 .and. j2.eq.j3) then
               iflost=.false.
               iused(j)=iused(j)+1
-	      local2global(i,3) = j
+              local2global(i,3) = j
             endif
           enddo
           if (iflost) then
@@ -523,12 +522,12 @@
             if (j1.eq.j3 .and. j2.eq.j4) then
               iflost=.false.
               iused(j)=iused(j)+1
-	      local2global(i,4) = j
+              local2global(i,4) = j
             endif
             if (j1.eq.j4 .and. j2.eq.j3) then
               iflost=.false.
               iused(j)=iused(j)+1
-	      local2global(i,4) = j
+              local2global(i,4) = j
             endif
           enddo
           if (iflost) then
